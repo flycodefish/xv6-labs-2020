@@ -1,10 +1,10 @@
 // Saved registers for kernel context switches.
 struct context {
-  uint64 ra;
-  uint64 sp;
+  uint64 ra;      // 返回地址寄存器，保存调用函数的返回地址
+  uint64 sp;      //栈指针，保存当前栈的位置
 
-  // callee-saved
-  uint64 s0;
+  // callee-saved - 调用者保存（callee-saved）寄存器，用于恢复调用者的状态
+  uint64 s0;    // s0 ~ s11 是保存寄存器，用于保存中间计算结果等
   uint64 s1;
   uint64 s2;
   uint64 s3;
@@ -18,7 +18,7 @@ struct context {
   uint64 s11;
 };
 
-// Per-CPU state.
+// Per-CPU state.   -CPU结构体 保存每个 CPU 核心的状态
 struct cpu {
   struct proc *proc;          // The process running on this cpu, or null.
   struct context context;     // swtch() here to enter scheduler().
@@ -41,7 +41,7 @@ extern struct cpu cpus[NCPU];
 // the trapframe includes callee-saved user registers like s0-s11 because the
 // return-to-user path via usertrapret() doesn't return through
 // the entire kernel call stack.
-struct trapframe {
+struct trapframe {                //保存用户程序陷入内核时的寄存器状态，内核通过它恢复用户程序的状态
   /*   0 */ uint64 kernel_satp;   // kernel page table
   /*   8 */ uint64 kernel_sp;     // top of process's kernel stack
   /*  16 */ uint64 kernel_trap;   // usertrap()

@@ -12,12 +12,14 @@
 uint64
 sys_trace(void)
 {
-  int mask;
+  int mask;   //mask每一位表示一个bool标志，1表示追踪该位对应系统调用，为0不追踪
 
   if(argint(0, &mask) < 0)                //获取用户程序传入的数据
       return -1;
-  
-  myproc()->kama_syscall_trace = mask;    //设置调用进程的kama_syscall_trace掩码mask
+
+  //设置调用进程的kama_syscall_trace掩码mask
+  myproc()->kama_syscall_trace = mask;    //mypro()返回当前进程的PCB
+                                         
   return 0;
 
 }
