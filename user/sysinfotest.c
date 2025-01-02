@@ -16,7 +16,7 @@ sinfo(struct sysinfo *info) {
 // use sbrk() to count how many free physical memory pages there are.
 //
 int
-countfree()
+countfree()     //返回当前系统中空闲内存的字节数
 {
   uint64 sz0 = (uint64)sbrk(0);
   struct sysinfo info;
@@ -39,7 +39,7 @@ countfree()
 }
 
 void
-testmem() {
+testmem() {     //通过 sbrk() 来验证系统的内存分配和释放是否按预期工作
   struct sysinfo info;
   uint64 n = countfree();
   
@@ -84,6 +84,7 @@ testcall() {
     exit(1);
   }
 
+  // 测试传入无效指针返回结果
   if (sysinfo((struct sysinfo *) 0xeaeb0b5b00002f5e) !=  0xffffffffffffffff) {
     printf("FAIL: sysinfo succeeded with bad argument\n");
     exit(1);
@@ -127,6 +128,10 @@ main(int argc, char *argv[])
   testcall();
   testmem();
   testproc();
-  printf("sysinfotest: OK\n");
+  struct sysinfo info;
+  sysinfo(&info);
+  // printf("the freemem is: %d\n", info.freemem);
+  // printf("the number of process is: %d\n", info.nproc);
+  // printf("sysinfotest: OK\n");
   exit(0);
 }

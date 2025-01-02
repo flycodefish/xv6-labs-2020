@@ -1,3 +1,4 @@
+// kernel/defs.h ->definition（定义） 包含kernel可用的各种声明，接口
 struct buf;
 struct context;
 struct file;
