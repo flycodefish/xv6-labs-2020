@@ -46,7 +46,7 @@ start()
   w_tp(id);
 
   // switch to supervisor mode and jump to main().
-  asm volatile("mret");
+  asm volatile("mret");   //内嵌汇编语句，通常用于在 C 语言或其他高级语言代码中直接插入汇编代码 -> 执行mret指令
 }
 
 // set up to receive timer interrupts in machine mode,
