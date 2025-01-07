@@ -30,7 +30,8 @@
 #define CLINT_MTIMECMP(hartid) (CLINT + 0x4000 + 8*(hartid))
 #define CLINT_MTIME (CLINT + 0xBFF8) // cycles since boot.
 
-// qemu puts programmable interrupt controller here.
+// qemu puts programmable interrupt controller here.    
+// PLIC（Programmable Interrupt Controller）是一个可编程中断控制器
 #define PLIC 0x0c000000L
 #define PLIC_PRIORITY (PLIC + 0x0)
 #define PLIC_PENDING (PLIC + 0x1000)
